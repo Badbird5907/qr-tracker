@@ -1,5 +1,5 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {ensureType, withMethods} from "@/util/server/server";
+import {ensureType, withMethods} from "@/util/server";
 import {setField} from "@/prisma/qrcodes";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
