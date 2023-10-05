@@ -9,6 +9,7 @@ datasource db {
 
 model QrCodes {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
+  slug        String @unique
   description String
   target      String
   title       String

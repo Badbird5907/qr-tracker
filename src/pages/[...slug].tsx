@@ -1,26 +1,16 @@
 import React from "react";
 
 import {GetServerSidePropsContext, InferGetServerSidePropsType} from "next";
-import {PopoverContent, PopoverTrigger} from "@/components/popover";
-import {Button, Popover} from "@nextui-org/react";
-
+import {getQrCode} from "@/prisma/qrcodes";
+import {ObjectId} from "bson";
+import {Click} from "@/types/click";
+import getClicksModel from "@/metrics/clicks";
 const SlugPage = (
     props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
     return (
         <>
-            <Popover placement="right">
-                <PopoverTrigger>
-                    <Button>Open Popover</Button>
-                </PopoverTrigger>
-                <PopoverContent>
-                    <div className="px-1 py-2">
-                        <div className="text-small font-bold">Popover Content</div>
-                        <div className="text-tiny">This is the popover content</div>
-                    </div>
-                </PopoverContent>
-            </Popover>
-
+            <h1 className={"text-4xl font-bold text-center"}>404 Not Found</h1>
         </>
     );
 };
@@ -29,9 +19,28 @@ export default SlugPage;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const {slug} = context.params!;
+    const data = await getQrCode(slug[0] as string);
+    if (data) {
+        const idString = data.id.toString();
+        const objectId = new ObjectId(idString);
+        const ClicksModel = await getClicksModel();
+        const click = new ClicksModel({
+            timestamp: new Date(),
+            meta: {
+                qrCodeId: objectId,
+                ref: context.query.ref,
+                userAgent: context.req.headers["user-agent"],
+            }
+        });
+        await click.save();
+        return {
+            redirect: {
+                destination: data.target,
+            },
+            props: {},
+        }
+    }
     return {
-        props: {
-            slug: slug,
-        },
+        props: {},
     };
 }

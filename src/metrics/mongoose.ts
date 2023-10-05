@@ -1,0 +1,63 @@
+// This approach is taken from https://github.com/vercel/next.js/tree/canary/examples/with-mongodb-mongoose
+import { ObjectId } from "bson";
+import mongoose from "mongoose";
+
+const { METRICS_URL } = process.env;
+
+if (!METRICS_URL) {
+    throw new Error("Please define the METRICS_URL environment variable.");
+}
+
+/**
+ * Global is used here to maintain a cached connection across hot reloads
+ * in development. This prevents connections growing exponentially
+ * during API Route usage.
+ */
+// @ts-ignore
+let cached = global.mongoose;
+
+if (!cached) {
+    // @ts-ignore
+    global.ObjectId = ObjectId;
+    // @ts-ignore
+    // eslint-disable-next-line no-multi-assign
+    cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function dbConnect() {
+    if (cached.conn) {
+        return cached.conn;
+    }
+
+    if (!cached.promise) {
+        const opts = {
+            bufferCommands: false,
+        };
+
+        // @ts-ignore
+        cached.promise = mongoose.connect(METRICS_URL, opts).then((mongoose) => {
+            return mongoose;
+        });
+    }
+    cached.conn = await cached.promise;
+    return cached.conn;
+}
+
+function dbConnectNow() {
+    if (cached.conn) return cached.conn;
+    if (!cached.promise) {
+        const opts = {
+            bufferCommands: false,
+        };
+
+        // @ts-ignore
+        cached.promise = mongoose.connect(METRICS_URL, opts).then((mongoose) => {
+            return mongoose;
+        });
+    }
+    cached.conn = cached.promise;
+    return cached.conn;
+}
+
+export default dbConnect;
+export { dbConnectNow };

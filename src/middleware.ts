@@ -7,9 +7,7 @@ export function middleware(request: NextRequest) {
     if (request.nextUrl.pathname.startsWith("/admin")) {
         // get the qrTrackerToken cookie
         const qrTrackerToken = request.cookies.get("qrTrackerToken");
-        console.log(qrTrackerToken);
         if (!qrTrackerToken || !verifyToken(qrTrackerToken.value)) {
-            console.log("redirecting");
             url.pathname = "/";
             return NextResponse.redirect(url);
         }
