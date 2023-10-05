@@ -1,6 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {ensureType, withMethods} from "@/pages/util/server";
-import {verifyToken} from "@/pages/util/auth-server";
+import {ensureType, withMethods} from "@/util/server";
+import {verifyToken} from "@/util/auth-server";
 
 async function handler(
     req: NextApiRequest,

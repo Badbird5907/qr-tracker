@@ -3,9 +3,9 @@ import {FaGithub, FaTwitter} from "react-icons/fa";
 import {Card, CardBody} from "@nextui-org/card";
 import {GetServerSidePropsContext} from "next";
 import {useDynamicModal} from "@/components/dynamic-modal";
-import {Input} from "@nextui-org/react";
+import {Divider, Input} from "@nextui-org/react";
 import axios from "axios";
-import {verifyToken} from "@/pages/util/auth-server";
+import {verifyToken} from "@/util/auth-server";
 
 export default function Home() {
     const {showModal, closeModal} = useDynamicModal();
@@ -28,7 +28,8 @@ export default function Home() {
                                           className={"w-full"}><FaTwitter/> Twitter</CustomButton>
                         </a>
                     </div>
-                    <CustomButton className={"mt-2 w-full"} onClickLoading={() => {
+                    <Divider className={"my-4"}/>
+                    <CustomButton className={"w-full"} onClickLoading={() => {
                         return new Promise((resolve, reject) => {
                             showModal({
                                 title: "Sign In",
