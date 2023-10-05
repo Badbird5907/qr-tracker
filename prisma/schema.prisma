@@ -3,14 +3,17 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider  = "mongodb"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
 }
 
 model QrCodes {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  slug        String @unique
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  slug        String   @unique
   description String
   target      String
   title       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

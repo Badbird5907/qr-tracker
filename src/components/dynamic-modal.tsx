@@ -1,3 +1,5 @@
+"use client";
+
 import React, {createContext, ReactNode, useContext, useState} from "react";
 import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader} from "@nextui-org/modal";
 
