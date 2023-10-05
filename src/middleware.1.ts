@@ -1,7 +1,7 @@
 import {NextRequest, NextResponse} from "next/server";
 import {verifyToken} from "@/util/auth-server";
 
-export async function middleware(request: NextRequest) {
+export async function middleware1(request: NextRequest) {
     const url = request.nextUrl.clone();
     // if we are on /admin
     if (request.nextUrl.pathname.startsWith("/admin")) {
