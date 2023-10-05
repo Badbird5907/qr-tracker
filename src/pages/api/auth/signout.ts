@@ -1,5 +1,5 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {withMethods} from "@/util/server";
+import {withMethods} from "@/util/server/server";
 
 async function handler(
     req: NextApiRequest,
