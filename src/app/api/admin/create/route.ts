@@ -1,22 +1,19 @@
-import {NextApiRequest, NextApiResponse} from "next";
 import {saveQrCode} from "@/prisma/qrcodes";
+import {NextResponse} from "next/server";
 
-export default async function handler(
-    req: NextApiRequest,
-    res: NextApiResponse
-) {
+export async function GET(req: Request) {
+    const body = await req.json();
     const {
         slug,
         title,
         link,
         description
-    } = req.body;
+    } = body;
     if (!slug || !title || !link || !description) {
-        res.status(400).json({
+        return NextResponse.json({
             success: false,
             message: "Missing fields"
-        });
-        return;
+        }, {status: 400});
     }
     await saveQrCode({
         slug,
@@ -24,8 +21,8 @@ export default async function handler(
         target: link,
         title,
     })
-    res.status(200).json({
+    return NextResponse.json({
         success: true,
         message: "Created"
-    });
+    }, {status: 200});
 }

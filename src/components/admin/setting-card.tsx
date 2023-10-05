@@ -1,3 +1,5 @@
+"use client";
+
 import {QrCodes} from ".prisma/client";
 import React, {HTMLInputTypeAttribute} from "react";
 import {Card, CardBody} from "@nextui-org/card";

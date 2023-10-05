@@ -1,15 +1,11 @@
-import {NextApiRequest, NextApiResponse} from "next";
 import getClicksModel from "@/metrics/clicks";
 import {ObjectId} from "bson";
+import {NextResponse} from "next/server";
 
-export default async function handler(
-    req: NextApiRequest,
-    res: NextApiResponse
-) {
+export async function GET(req: Request, {params}: { params: { id: string } }) {
     const ClicksModel = await getClicksModel(); // time series model
-    const {id, limit} = req.query;
-    // find the top 10 refs.
-    const limitNum = parseInt(limit as string) || 10;
+    const {id} = params;
+    const limitNum = 10;
     const refs = await ClicksModel.aggregate([
         {
             $match: {
@@ -38,5 +34,5 @@ export default async function handler(
             }
         },
     ]);
-    res.status(200).json(refs);
+    return NextResponse.json(refs, {status: 200});
 }

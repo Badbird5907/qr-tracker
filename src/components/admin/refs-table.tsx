@@ -1,3 +1,5 @@
+"use client";
+
 import useSWR from "swr";
 import {Card, CardBody, CardHeader} from "@nextui-org/card";
 import {Divider, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow} from "@nextui-org/react";
@@ -30,7 +32,7 @@ const RefsTable = (props: RefsTableProps) => {
                             // [{"count":11,"ref":"abc"},{"count":5,"ref":"3094"},{"count":5,"ref":"123"},{"count":4,"ref":"124"},{"count":3,"ref":"iej"}]
 
                             <TableRow key={i}>
-                                <TableCell>{ref.ref}</TableCell>
+                                <TableCell>{!ref.ref ? "None" : ref.ref}</TableCell>
                                 <TableCell>{ref.count}</TableCell>
                             </TableRow>
                         ))}

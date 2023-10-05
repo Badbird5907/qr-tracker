@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 
 import {useDynamicModal} from "@/components/dynamic-modal";
 import useSWR from "swr";
@@ -13,13 +13,14 @@ import {
     TableHeader,
     TableRow
 } from "@nextui-org/react";
+import CustomButton from "@/components/button";
 import {FaEdit, FaPlus, FaTrash} from "react-icons/fa";
 import NextLink from "next/link";
-import CustomButton from "@/components/button";
 import axios from "axios";
 import {QrCodes} from ".prisma/client";
+import React from "react";
 
-const AdminPage = () => {
+export default function Page() {
     const {showModal, closeModal} = useDynamicModal();
     const {data, mutate} = useSWR('/api/admin/list')
     return (
@@ -118,7 +119,7 @@ const AdminPage = () => {
                                             <TableCell>{new Date(qrCode.createdAt).toLocaleString()}</TableCell>
                                             <TableCell>{new Date(qrCode.updatedAt).toLocaleString()}</TableCell>
                                             <TableCell>
-                                                <NextLink href={`/admin/qrcodes/${qrCode.id}`}
+                                                <NextLink href={`/admin/${qrCode.id}`}
                                                           className={"outline-0"}>
                                                     <Button color={"primary"} className={"mr-4"}><FaEdit/> Edit</Button>
                                                 </NextLink>
@@ -161,12 +162,4 @@ const AdminPage = () => {
             </div>
         </>
     );
-};
-
-export default AdminPage;
-
-export async function getServerSideProps() {
-    return {
-        props: {},
-    };
 }

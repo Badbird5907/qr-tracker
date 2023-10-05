@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect } from "react";
 import { Button as NextUIButton, ButtonProps } from "@nextui-org/react";
 import { PressEvent } from "@react-types/shared";
