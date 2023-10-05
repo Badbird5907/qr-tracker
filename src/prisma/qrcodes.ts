@@ -17,7 +17,7 @@ export const getQrCodeById = async (id: string) => {
 export const getAllQrCodes = async () => {
     return prisma.qrCodes.findMany();
 }
-export const saveQrCode = async (qrCode: QrCodes) => {
+export const saveQrCode = async (qrCode: any) => {
     return prisma.qrCodes.create({
         data: qrCode,
     });
@@ -27,5 +27,14 @@ export const deleteQrCode = async (id: string) => {
         where: {
             id,
         }
+    });
+}
+
+export const setField = async (id: string, data: any) => {
+    return prisma.qrCodes.update({
+        where: {
+            id,
+        },
+        data
     });
 }
