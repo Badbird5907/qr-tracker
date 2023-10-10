@@ -2,10 +2,10 @@
 import { ObjectId } from "bson";
 import mongoose from "mongoose";
 
-const { METRICS_URL } = process.env;
+const { DATABASE_URL } = process.env;
 
-if (!METRICS_URL) {
-    throw new Error("Please define the METRICS_URL environment variable.");
+if (!DATABASE_URL) {
+    throw new Error("Please define the DATABASE_URL environment variable.");
 }
 
 /**
@@ -35,7 +35,7 @@ async function dbConnect() {
         };
 
         // @ts-ignore
-        cached.promise = mongoose.connect(METRICS_URL, opts).then((mongoose) => {
+        cached.promise = mongoose.connect(DATABASE_URL, opts).then((mongoose) => {
             return mongoose;
         });
     }
@@ -51,7 +51,7 @@ function dbConnectNow() {
         };
 
         // @ts-ignore
-        cached.promise = mongoose.connect(METRICS_URL, opts).then((mongoose) => {
+        cached.promise = mongoose.connect(DATABASE_URL, opts).then((mongoose) => {
             return mongoose;
         });
     }

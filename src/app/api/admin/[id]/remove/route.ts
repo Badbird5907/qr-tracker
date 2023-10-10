@@ -1,5 +1,6 @@
 import {NextResponse} from "next/server";
-import {deleteQrCode} from "@/prisma/qrcodes";
+import getQrCodesModel from "@/database/qr-codes";
+import {ObjectId} from "bson";
 
 export async function DELETE(req: Request, {params}: { params: { id: string } }) {
     const {id} = params;
@@ -9,7 +10,10 @@ export async function DELETE(req: Request, {params}: { params: { id: string } })
             message: "No ID provided"
         }, {status: 400})
     }
-    await deleteQrCode(id);
+    const QrCodeModel = await getQrCodesModel();
+    await QrCodeModel.deleteOne({
+        _id: new ObjectId(id)
+    });
     return NextResponse.json({
         success: true,
         message: "Deleted"

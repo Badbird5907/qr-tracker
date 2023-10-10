@@ -1,6 +1,6 @@
 import {Schema} from "mongoose";
 import {Click} from "@/types/click";
-import dbConnect from "@/metrics/mongoose";
+import dbConnect from "@/database/mongoose";
 
 
 export const clicksSchema = new Schema<Click>(

@@ -1,4 +1,4 @@
-import getClicksModel from "@/metrics/clicks";
+import getClicksModel from "@/database/clicks";
 import {ObjectId} from "bson";
 import {NextResponse} from "next/server";
 
