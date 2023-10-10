@@ -1,10 +1,3 @@
-import {Card, CardBody} from "@nextui-org/card";
-import CustomButton from "@/components/button";
-import {FaGithub, FaTwitter} from "react-icons/fa";
-import {Divider, Input} from "@nextui-org/react";
-import {useDynamicModal} from "@/components/dynamic-modal";
-import axios from "axios";
-import LoginButton from "@/components/login-button";
 import LoginCard from "@/components/login-card";
 import {cookies} from "next/headers";
 import {verifyToken} from "@/util/auth-server";

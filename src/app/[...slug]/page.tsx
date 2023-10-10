@@ -30,7 +30,7 @@ export default async function Page(ctx: {
         )
     }
     const headersList = headers();
-    const idString = data.id.toString();
+    const idString = data._id.toString();
     const objectId = new ObjectId(idString);
     const ClicksModel = await getClicksModel();
     const click = new ClicksModel({

@@ -1,7 +1,7 @@
 import {NextResponse} from "next/server";
 import getQrCodesModel from "@/database/qr-codes";
 
-export async function GET(req: Request) {
+export async function POST(req: Request) {
     const body = await req.json();
     const {
         slug,

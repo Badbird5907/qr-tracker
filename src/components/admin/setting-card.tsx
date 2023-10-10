@@ -1,15 +1,15 @@
 "use client";
 
-import {QrCodes} from ".prisma/client";
 import React, {HTMLInputTypeAttribute} from "react";
 import {Card, CardBody} from "@nextui-org/card";
 import {Input} from "@nextui-org/react";
 import CustomButton from "@/components/button";
 import axios from "axios";
+import {QrCode} from "@/types/qr-code";
 
 const SettingCard = ({title, qrCode, fieldName, callback = null, inputType = "text"}: {
     title: string,
-    qrCode: QrCodes,
+    qrCode: QrCode,
     fieldName: string,
     callback?: ((result: any) => void) | null,
     inputType?: HTMLInputTypeAttribute | undefined
@@ -26,7 +26,7 @@ const SettingCard = ({title, qrCode, fieldName, callback = null, inputType = "te
                     if (inputType === "number") {
                         newField = parseInt(newField);
                     }
-                    return axios.post(`/api/admin/${qrCode.id}/update/${fieldName}`, {
+                    return axios.post(`/api/admin/${qrCode._id}/update/${fieldName}`, {
                         [fieldName]: newField,
                     }).then(() => {
                         if (callback) {

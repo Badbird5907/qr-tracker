@@ -17,8 +17,8 @@ import CustomButton from "@/components/button";
 import {FaEdit, FaPlus, FaTrash} from "react-icons/fa";
 import NextLink from "next/link";
 import axios from "axios";
-import {QrCodes} from ".prisma/client";
 import React from "react";
+import {QrCode} from "@/types/qr-code";
 
 export default function Page() {
     const {showModal, closeModal} = useDynamicModal();
@@ -107,19 +107,17 @@ export default function Page() {
                                 <TableColumn>Slug</TableColumn>
                                 <TableColumn>Title</TableColumn>
                                 <TableColumn>Created</TableColumn>
-                                <TableColumn>Last Modified</TableColumn>
                                 <TableColumn>Actions</TableColumn>
                             </TableHeader>
                             <TableBody>
-                                {data && data?.map((qrCode: QrCodes, i: number) => {
+                                {data && data?.map((qrCode: QrCode, i: number) => {
                                     return (
                                         <TableRow key={i}>
                                             <TableCell>{qrCode.slug}</TableCell>
                                             <TableCell>{qrCode.title}</TableCell>
                                             <TableCell>{new Date(qrCode.createdAt).toLocaleString()}</TableCell>
-                                            <TableCell>{new Date(qrCode.updatedAt).toLocaleString()}</TableCell>
                                             <TableCell>
-                                                <NextLink href={`/admin/${qrCode.id}`}
+                                                <NextLink href={`/admin/${qrCode._id}`}
                                                           className={"outline-0"}>
                                                     <Button color={"primary"} className={"mr-4"}><FaEdit/> Edit</Button>
                                                 </NextLink>
@@ -139,7 +137,7 @@ export default function Page() {
                                                                     color={"danger"}
                                                                     closeModal={closeModal}
                                                                     onClickLoading={() => {
-                                                                        return axios.delete(`/api/admin/${qrCode.id}/remove`).then(() => {
+                                                                        return axios.delete(`/api/admin/${qrCode._id}/remove`).then(() => {
                                                                             // trigger swr to revalidate
                                                                             return mutate()
                                                                         })
