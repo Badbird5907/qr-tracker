@@ -1,10 +1,11 @@
 import RefsTable from "@/components/admin/refs-table";
 import SettingCard from "@/components/admin/setting-card";
 import React from "react";
-import {getQrCodeById} from "@/prisma/qrcodes";
 import CustomButton from "@/components/button";
 import {FaArrowLeft} from "react-icons/fa";
 import Link from "next/link";
+import getQrCodesModel from "@/database/qr-codes";
+import {ObjectId} from "bson";
 
 export default async function Page({params}: {
     params: {
@@ -12,7 +13,10 @@ export default async function Page({params}: {
     }
 }) {
     const {id} = params;
-    const data = await getQrCodeById(id as string);
+    const QrCodeModel = await getQrCodesModel();
+    const data = await QrCodeModel.findOne({
+        _id: new ObjectId(id)
+    });
     if (!data) {
         return (
             <span>404 Not Found.</span>
