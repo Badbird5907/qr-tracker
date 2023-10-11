@@ -14,14 +14,15 @@ export default async function Page({params}: {
 }) {
     const {id} = params;
     const QrCodeModel = await getQrCodesModel();
-    const data = await QrCodeModel.findOne({
+    const _data = await QrCodeModel.findOne({
         _id: new ObjectId(id)
     });
-    if (!data) {
+    if (!_data) {
         return (
             <span>404 Not Found.</span>
         )
     }
+    const data = JSON.parse(JSON.stringify(_data));
 
     return (
         <>
