@@ -21,8 +21,8 @@ const LoginCard = () => {
                             <CustomButton href={"https://github.com/Badbird5907"} variant={"faded"}
                                           className={"text-white w-full"}><FaGithub/> GitHub</CustomButton>
                         </a>
-                        <a href={"https://twitter.com/Badbird5907"} target={"_blank"} className={"w-full"}>
-                            <CustomButton href={"https://twitter.com/Badbird5907"}
+                        <a href={"https://twitter.com/Badbird_5907"} target={"_blank"} className={"w-full"}>
+                            <CustomButton href={"https://twitter.com/Badbird_5907"}
                                           className={"w-full"}><FaTwitter/> Twitter</CustomButton>
                         </a>
                     </div>
