@@ -14,6 +14,7 @@ export default async function Page(ctx: {
 }) {
     const {slug} = ctx.params;
     const {ref} = ctx.searchParams;
+    const refStr = ref && ref.length < 100 ? ref : undefined;
     const slugStr = Array.isArray(slug) ? slug[0] : undefined;
     if (!slugStr) {
         return (
@@ -37,7 +38,7 @@ export default async function Page(ctx: {
         timestamp: new Date(),
         meta: {
             qrCodeId: objectId,
-            ref: ref,
+            ref: refStr,
             userAgent: headersList.get("user-agent"),
         }
     });

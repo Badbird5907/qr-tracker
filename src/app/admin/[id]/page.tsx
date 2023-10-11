@@ -6,6 +6,8 @@ import {FaArrowLeft} from "react-icons/fa";
 import Link from "next/link";
 import getQrCodesModel from "@/database/qr-codes";
 import {ObjectId} from "bson";
+import {Card, CardBody, CardHeader} from "@nextui-org/card";
+import QrCode from "@/components/qr-code";
 
 export default async function Page({params}: {
     params: {
@@ -44,6 +46,7 @@ export default async function Page({params}: {
                             <SettingCard title={"Target"} qrCode={data} fieldName={"target"}/>
                             <SettingCard title={"Title"} qrCode={data} fieldName={"title"}/>
                             <SettingCard title={"Description"} qrCode={data} fieldName={"description"}/>
+                            <QrCode slug={data.slug} />
                         </div>
                     </div>
                 </div>
