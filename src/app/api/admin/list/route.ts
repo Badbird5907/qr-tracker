@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export async function GET(request: Request) {
     const QrCodeModel = await getQrCodesModel();
     const all = await QrCodeModel.find();
-    return NextResponse.json({all, timestamp: Date.now()}, {
+    return NextResponse.json(all, {
         status: 200,
         headers: {
             "Cache-Control": "no-cache"
