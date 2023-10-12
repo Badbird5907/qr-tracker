@@ -1,6 +1,10 @@
 import {NextResponse} from "next/server";
 import getQrCodesModel from "@/database/qr-codes";
 
+export const fetchCache = 'force-no-store';
+export const revalidate = 0;
+export const dynamic = "force-dynamic";
+export const maxDuration = 0;
 export async function GET(request: Request) {
     const QrCodeModel = await getQrCodesModel();
     const all = await QrCodeModel.find();
@@ -11,4 +15,3 @@ export async function GET(request: Request) {
         }
     })
 }
-export const fetchCache = 'force-no-store';
