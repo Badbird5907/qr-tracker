@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     }
     const QrCodeModel = await getQrCodesModel();
     const existing = await QrCodeModel.findOne({
-        slug: { $regex: new RegExp(`^${slug}$`, 'i') }
+        slug
     });
     if (existing) {
         return NextResponse.json({
