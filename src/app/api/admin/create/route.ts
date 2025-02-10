@@ -3,7 +3,7 @@ import getQrCodesModel from "@/database/qr-codes";
 
 export async function POST(req: Request) {
     const body = await req.json();
-    const {
+    let {
         slug,
         title,
         link,
@@ -15,6 +15,7 @@ export async function POST(req: Request) {
             message: "Missing fields"
         }, {status: 400});
     }
+    slug = slug.toLowerCase();
     const QrCodeModel = await getQrCodesModel();
     const existing = await QrCodeModel.findOne({
         slug
