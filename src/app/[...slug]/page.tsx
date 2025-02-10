@@ -15,7 +15,8 @@ export default async function Page(ctx: {
     const {slug} = ctx.params;
     const {ref} = ctx.searchParams;
     const refStr = ref && ref.length < 100 ? ref : undefined;
-    const slugStr = Array.isArray(slug) ? slug[0].toLowerCase() : undefined;
+    let slugStr = Array.isArray(slug) ? slug[0] : undefined;
+    slugStr = slugStr.toLowerCase();
     if (!slugStr) {
         return (
             <span>404 Not Found.</span>
