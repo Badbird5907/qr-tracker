@@ -23,7 +23,7 @@ export default async function Page(ctx: {
     }
     const QrCodeModel = await getQrCodesModel();
     const data = await QrCodeModel.findOne({
-        slug: slugStr
+        slug: { $regex: new RegExp(`^${slugStr}$`, 'i') }
     });
     if (!data) {
         return (
