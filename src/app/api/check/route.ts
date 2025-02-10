@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export async function GET(request: Request) {
   // get ?slug=xxx
   const url = new URL(request.url);
-  const slug = url.searchParams.get("slug");
+  const slug = url.searchParams.get("slug")?.toLowerCase();
   if (!slug) {
     return NextResponse.json({
       message: "slug is required",
